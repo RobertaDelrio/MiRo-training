@@ -1,4 +1,4 @@
- # Gesture Based Control of MiRo Robot
+ # MiRo Training
 
  ## The Project
  This Project has been developed for the Social Robotics course of the master degree program in Robotics Engineering at University of Genoa.
@@ -45,7 +45,7 @@ Strictly follow the instructions in the Install MDK section as the following ste
 
 Not necessary to make static IP for your workstation (laptop) while setting up connection with MiRo.
 
-### Gesture Based Control MiRo
+### MiRo Training
 
 Create a catkin workspace and clone all the packages in the src folder
 
