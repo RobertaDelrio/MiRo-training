@@ -97,6 +97,7 @@ class BallDetection():
                 self.count_ball = 0
                 self.ball = False
                 print "NO COMPLETE DETECTION"
+                print "miao"
 
     
 
