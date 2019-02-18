@@ -80,28 +80,36 @@ class BallDetection():
             
         else:
             self.count_left = self.count_left + 1
-            if self.count_left > 10:
+            if self.count_left > 5:
                 print "BALL DETECTED IN LEFT CAMERA"
                 self.ball_left = True
                 self.count_no_left = 0
     
     def compared_detection(self):
+        q = platform_control()
         while not rospy.is_shutdown():
-
             if self.ball_right and self.ball_left:
                 self.count_ball = self.count_ball + 1 
-                if self.count_ball > 10:
+                if self.count_ball > 5:
                     self.ball = True
                     print "DETECTION COMPLETE"
+                    q.body_vel.linear.x = 150.0
+                    q.body_vel.angular.z = 0.0
             else:
                 self.count_ball = 0
                 self.ball = False
                 print "NO COMPLETE DETECTION"
-                print "miao"
-
-    
-
-
+                if self.ball_right:
+                    q.body_vel.linear.x = 0.0
+                    q.body_vel.angular.z = 1.4
+                elif self.ball_left:
+                    q.body_vel.linear.x = 0.0
+                    q.body_vel.angular.z = -1.4
+                else:
+                    q.body_vel.linear.x = 0.0
+                    q.body_vel.angular.z = 3.0
+            self.pub_platform_control.publish(q)
+                     
 
 if __name__== '__main__':
     rospy.init_node('follow_me')
