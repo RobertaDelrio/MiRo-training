@@ -28,21 +28,41 @@ class SleepMode():
         self.tail = -1.0
         self.ear_rotate = [0.0,0.0]
         self.body_config = [0.0,0.0,0.0,0.0]
-        self.body_config_speed = [0.0,0.0,-1.0,0.0]
+        self.body_config_speed = [0.0,-1.0,-1.0,-1.0]
         self.pub_platform_control = rospy.Publisher('miro/rob01/platform/control',platform_control,queue_size=0)
         
     def miro_sleep(self):
         q = platform_control()
-        while not rospy.is_shutdown():
-            q.eyelid_closure = 1.0
-            q.lights_raw = [0,255,255,0,0,0,0,0,0,0,0,0,0,0,0,0,255,255]#white color
-            q.tail = -1.0
-            q.ear_rotate = [0.0,0.0]
-            q.body_config = [0.0,0.0,0.0,0.0]
-            q.body_config_speed = [0.0,-0.5,-0.5,-0.5]
-            self.pub_platform_control.publish(q)
+        
+        while True:
+            try:
+                q.eyelid_closure = 1.0
+                q.lights_raw = [0,255,255,0,0,0,0,0,0,0,0,0,0,0,0,0,255,255]#white color
+                q.tail = -1.0
+                q.ear_rotate = [0.0,0.0]
+                q.body_config = [0.0,1.2,0.6,0.7]
+                q.body_config_speed = [0.0,-1.0,-1.0,-1.0]
+                self.pub_platform_control.publish(q)
+            except KeyboardInterrupt:
+                self.eyelid_closure = 0.0
+                self.lights_raw = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+                self.tail = -1.0
+                self.ear_rotate = [0.0,0.0]
+                self.body_config = [0.0,0.0,0.0,0.0]
+                self.body_config_speed = [0.0,-1.0,-1.0,-1.0]
+                self.pub_platform_control.publish(q)                
+                break
+
+        #while not rospy.is_shutdown():
+        #    q.eyelid_closure = 1.0
+         #   q.lights_raw = [0,255,255,0,0,0,0,0,0,0,0,0,0,0,0,0,255,255]#white color
+          #  q.tail = -1.0
+           # q.ear_rotate = [0.0,0.0]
+            #q.body_config = [0.0,1.2,0.6,0.7]
+            #q.body_config_speed = [0.0,-1.0,-1.0,-1.0]
+            #self.pub_platform_control.publish(q)
 
 if __name__== '__main__':
-    rospy.init_node('sleep')
+    rospy.init_node('sleep', disable_signals=True)
     sleep = SleepMode()
     sleep.miro_sleep()
