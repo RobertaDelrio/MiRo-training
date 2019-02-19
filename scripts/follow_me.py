@@ -45,7 +45,7 @@ class BallDetection():
         ## Subscriber to the topic /imu_mapping a message of type Twist
         #self.sub_imu_data = rospy.Subscriber('/imu_mapping',Twist,self.callback_last_command,queue_size=1)
         self.sub_camera_left = rospy.Subscriber('left/hough_circles/circles', CircleArrayStamped, self.callback_camera_left,queue_size=1)
-        self.pub_platform_control = rospy.Publisher('miro/rob01/platform/control',platform_control,queue_size=0)
+        ####self.pub_platform_control = rospy.Publisher('miro/rob01/platform/control',platform_control,queue_size=0)
         #self.pub_platform_control = rospy.Publisher('/oab', platform_control, queue_size=0)
 
  
@@ -93,22 +93,22 @@ class BallDetection():
                 if self.count_ball > 5:
                     self.ball = True
                     print "DETECTION COMPLETE"
-                    q.body_vel.linear.x = 150.0
-                    q.body_vel.angular.z = 0.0
+                    ###q.body_vel.linear.x = 150.0
+                    ###q.body_vel.angular.z = 0.0
             else:
                 self.count_ball = 0
                 self.ball = False
                 print "NO COMPLETE DETECTION"
-                if self.ball_right:
-                    q.body_vel.linear.x = 0.0
-                    q.body_vel.angular.z = 1.4
-                elif self.ball_left:
-                    q.body_vel.linear.x = 0.0
-                    q.body_vel.angular.z = -1.4
-                else:
-                    q.body_vel.linear.x = 0.0
-                    q.body_vel.angular.z = 3.0
-            self.pub_platform_control.publish(q)
+            #     if self.ball_right:
+            #         q.body_vel.linear.x = 0.0
+            #         q.body_vel.angular.z = 1.4
+            #     elif self.ball_left:
+            #         q.body_vel.linear.x = 0.0
+            #         q.body_vel.angular.z = -1.4
+            #     else:
+            #         q.body_vel.linear.x = 0.0
+            #         q.body_vel.angular.z = 3.0
+            # self.pub_platform_control.publish(q)
                      
 
 if __name__== '__main__':
