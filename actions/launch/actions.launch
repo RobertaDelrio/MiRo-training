@@ -1,0 +1,22 @@
+<launch>
+<!--REAL ROBOT OR SIMULATION -->
+<!-- Real miro = rob01 | Simulation miro = sim01 -->
+
+<param name="/robot_name" value="rob01" />
+
+<!--NODE RATE-->
+<param name = "rate" value="200" />
+
+<!-- DOUBLE CAMERA, OBJECT SEGMENTATION, HOUGH TRANSFORM -->
+
+<!--GESTURE BASED BEHAVIOUR-->
+    <!-- MQTT BRIDGE -->
+    <include file="$(find mqtt_ros_bridge)/launch/imu_bridge.launch"/>
+
+<!-- ACTIONS -->
+
+<node name="follow_me" pkg="actions" type="follow_me.py" />
+<node name="sleep" pkg="actions" type="sleep.py" />
+
+
+</launch>

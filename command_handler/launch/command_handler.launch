@@ -1,0 +1,21 @@
+<launch>
+
+<!--REAL ROBOT OR SIMULATION -->
+<!-- Real miro = rob01 | Simulation miro = sim01 -->
+
+<param name="/robot_name" value="rob01" />
+
+<!--NODE RATE-->
+<param name = "rate" value="200" />
+ 
+<!-- SPEECH RECOGNITION -->
+
+<!-- HANDLING COMMANDS -->
+
+<node name="command_activation" pkg="command_handler" type="coomand_activation.py" />
+<node name="command_recognition" pkg="command_handler" type="coomand_recognition.py" />
+
+<!-- ACTIONS -->
+<include file="$(find actions)/launch/actions.launch" />
+
+</launch>
