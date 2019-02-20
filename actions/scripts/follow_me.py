@@ -45,7 +45,7 @@ class BallDetection():
         ## Subscriber to the topic /imu_mapping a message of type Twist
         #self.sub_imu_data = rospy.Subscriber('/imu_mapping',Twist,self.callback_last_command,queue_size=1)
         self.sub_camera_left = rospy.Subscriber('left/hough_circles/circles', CircleArrayStamped, self.callback_camera_left,queue_size=1)
-        ####self.pub_platform_control = rospy.Publisher('miro/rob01/platform/control',platform_control,queue_size=0)
+        self.pub_follow_ball = rospy.Publisher('miro/rob01/platform/control',platform_control,queue_size=0)
         #self.pub_platform_control = rospy.Publisher('/oab', platform_control, queue_size=0)
 
  
@@ -55,14 +55,14 @@ class BallDetection():
 
         if not self.detect_right: 
             self.count_no_right = self.count_no_right + 1 
-            if self.count_no_right > 5:
+            if self.count_no_right > 3:
                 self.count_right = 0
                 print "NO DETECTION IN RIGHT CAMERA"
                 self.ball_right = False
             
         else:
             self.count_right = self.count_right + 1
-            if self.count_right > 10:
+            if self.count_right > 3:
                 print "BALL DETECTED IN RIGHT CAMERA"
                 self.ball_right = True
                 self.count_no_right = 0
@@ -73,14 +73,14 @@ class BallDetection():
 
         if not self.detect_left: 
             self.count_no_left = self.count_no_left + 1
-            if self.count_no_left > 5:
+            if self.count_no_left > 3:
                 self.count_left = 0
                 print "NO DETECTION IN LEFT CAMERA"
                 self.ball_left = False
             
         else:
             self.count_left = self.count_left + 1
-            if self.count_left > 5:
+            if self.count_left > 3:
                 print "BALL DETECTED IN LEFT CAMERA"
                 self.ball_left = True
                 self.count_no_left = 0
@@ -90,25 +90,26 @@ class BallDetection():
         while not rospy.is_shutdown():
             if self.ball_right and self.ball_left:
                 self.count_ball = self.count_ball + 1 
-                if self.count_ball > 5:
+                if self.count_ball > 3:
                     self.ball = True
                     print "DETECTION COMPLETE"
-                    ###q.body_vel.linear.x = 150.0
-                    ###q.body_vel.angular.z = 0.0
+                    q.body_vel.linear.x = 200.0
+                    q.body_vel.angular.z = 0.0
             else:
                 self.count_ball = 0
                 self.ball = False
-                print "NO COMPLETE DETECTION"
-            #     if self.ball_right:
-            #         q.body_vel.linear.x = 0.0
-            #         q.body_vel.angular.z = 1.4
-            #     elif self.ball_left:
-            #         q.body_vel.linear.x = 0.0
-            #         q.body_vel.angular.z = -1.4
-            #     else:
-            #         q.body_vel.linear.x = 0.0
-            #         q.body_vel.angular.z = 3.0
-            # self.pub_platform_control.publish(q)
+                #print "NO COMPLETE DETECTION"
+                if self.ball_right:
+                    q.body_vel.linear.x = 0.0
+                    q.body_vel.angular.z = -0.2
+                elif self.ball_left:
+                    q.body_vel.linear.x = 0.0
+                    q.body_vel.angular.z = 0.2
+                else:
+                    q.body_vel.linear.x = 0.0
+                    q.body_vel.angular.z = 0.0
+
+            self.pub_follow_ball.publish(q)
                      
 
 if __name__== '__main__':
