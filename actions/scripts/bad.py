@@ -34,7 +34,7 @@ class SadMode():
         #self.ear_rotate = [0.0,0.0]
         #self.body_config = [0.0,0.0,0.0,0.0]
         #self.body_config_speed = [0.0,-1.0,-1.0,-1.0]
-        self.pub_platform_control = rospy.Publisher('/miro/rob01/platform/control',platform_control,queue_size=0)
+        self.pub_platform_control = rospy.Publisher('/miro_sad',platform_control,queue_size=0)
 
     def miro_sad(self):
         r = rospy.Rate(self.rate)
@@ -56,6 +56,7 @@ class SadMode():
             else:
                 q.body_vel.linear.x = 0.0
                 q.body_vel.angular.z = 0.0
+                q.lights_raw = [155,0,0,255,0,0,255,0,0,255,0,0,255,0,0,255,0,0]
             self.pub_platform_control.publish(q)
             
             
