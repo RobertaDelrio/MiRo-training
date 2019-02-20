@@ -31,12 +31,16 @@ class CommandActivation():
 
         
     def __init__(self):
+        ## Node rate
+        self.rate = rospy.get_param('rate',200)
 
         #topic root
         ## Allow to switch from real robot to simulation from launch file
         self.robot_name = rospy.get_param ( '/robot_name', 'rob01')
         topic_root = "/miro/" + self.robot_name
         print "topic_root", topic_root
+
+
         self.activation = False
         ## Initialization of the string to evaluate
         self.command = "string"
@@ -59,15 +63,15 @@ class CommandActivation():
     def callback_switch_off(self, switch_off):
 
         if switch_off:
-            
-            self.activation = False
-            self.command = "string"
             self.count = 0
+            self.command = "string"
+            
             
 
     ## Function that check the incoming commands and, if the activation command ("Miro") is received, brings the robot in the default mode and enables the evaluation of futhers commands
     def activate_commands(self):
         q = platform_control()
+        r = rospy.Rate(self.rate)
         self.count = 0
         while not rospy.is_shutdown():
             if self.command == "Miro":
@@ -83,6 +87,7 @@ class CommandActivation():
                     self.pub_platform_control.publish(q)
                 self.activation = True
                 self.pub_activation.publish(True)
+            r.sleep()
                 
 
 

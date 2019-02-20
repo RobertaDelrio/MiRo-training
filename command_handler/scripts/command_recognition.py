@@ -31,6 +31,8 @@ class CommandRecognition():
 
         
     def __init__(self):
+        ## Node rate
+        self.rate = rospy.get_param('rate',200)
 
         #topic root
         ## Allow to switch from real robot to simulation from launch file
@@ -84,23 +86,33 @@ class CommandRecognition():
     def switching_commands(self):
 
         q = platform_control()
-
+        r = rospy.Rate(self.rate)
         while not rospy.is_shutdown():
 
-            if self.activate:
+            if self.activate and self.command == "Sleep" :
+                #self.pub_sleep_mode.publish(True)
+                q = self.q_sleep
+                self.pub_platform_control.publish(q)
+                self.pub_sleep_mode.publish(True)
+                self.activate = False
+                    
+            elif self.activate and self.command == "Dance":
+                print "Miro Dance"
 
+            r.sleep()
+
+            """ if self.activate:
+                r.sleep()
                 if self.command == "Sleep":
-                    q.eyelid_closure = 1.0
-                    q.lights_raw = [0,255,255,0,0,0,0,0,0,0,0,0,0,0,0,0,255,255]
-                    q.tail = -1.0
-                    q.ear_rotate = [0.0,0.0]
-                    q.body_config = [0.0,1.2,0.6,0.7]
-                    q.body_config_speed = [0.0,-1.0,-1.0,-1.0]
-                        #q = self.q_sleep
-
-                    self.pub_platform_control.publish(q)
-                    #self.activate = False
+                    self.activate = False
                     self.pub_sleep_mode.publish(True)
+                    q = self.q_sleep
+                    self.pub_platform_control.publish(q) """
+                    
+            """ if self.command == "Dance":
+                    print "Miro Dance"
+            r.sleep() """
+
 
                 
                 

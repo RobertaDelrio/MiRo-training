@@ -23,6 +23,9 @@ from datetime import datetime
 
 class SleepMode():
     def __init__(self):
+        ## Node rate
+        self.rate = rospy.get_param('rate',200)
+
         self.eyelid_closure = 0.0
         self.lights_raw = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
         self.tail = 0.0
@@ -32,6 +35,7 @@ class SleepMode():
         self.pub_platform_control = rospy.Publisher('/miro_sleep',platform_control,queue_size=0)
         
     def miro_sleep(self):
+        r = rospy.Rate(self.rate)
         q = platform_control()
         
         while True:
@@ -40,7 +44,7 @@ class SleepMode():
                 q.lights_raw = [0,255,255,0,0,0,0,0,0,0,0,0,0,0,0,0,255,255]#white color
                 q.tail = -1.0
                 q.ear_rotate = [0.0,0.0]
-                q.body_config = [0.0,1.2,0.6,0.7]
+                q.body_config = [0.0,0.8,0.3,0.02]
                 q.body_config_speed = [0.0,-1.0,-1.0,-1.0]
                 self.pub_platform_control.publish(q)
             except KeyboardInterrupt:
@@ -52,6 +56,7 @@ class SleepMode():
                 self.body_config_speed = [0.0,-1.0,-1.0,-1.0]
                 self.pub_platform_control.publish(q)                
                 break
+            r.sleep()
 
         #while not rospy.is_shutdown():
             #q.eyelid_closure = 1.0
