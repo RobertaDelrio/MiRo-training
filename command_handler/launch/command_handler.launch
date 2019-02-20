@@ -10,6 +10,8 @@
  
 <!-- SPEECH RECOGNITION -->
 
+<include file="$(find speech_interaction)/launch/speech_back_example.launch"/>
+
 <!-- HANDLING COMMANDS -->
 
 <node name="command_activation" pkg="command_handler" type="coomand_activation.py" />

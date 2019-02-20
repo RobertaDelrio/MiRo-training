@@ -11,11 +11,11 @@
 
 <!--GESTURE BASED BEHAVIOUR-->
     <!-- MQTT BRIDGE -->
-    <include file="$(find mqtt_ros_bridge)/launch/imu_bridge.launch"/>
+    <!-- <include file="$(find mqtt_ros_bridge)/launch/imu_bridge.launch"/> -->
 
 <!-- ACTIONS -->
 
-<node name="follow_me" pkg="actions" type="follow_me.py" />
+<!-- <node name="follow_me" pkg="actions" type="follow_me.py" /> -->
 <node name="sleep" pkg="actions" type="sleep.py" />
 
 
