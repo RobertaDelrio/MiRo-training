@@ -89,7 +89,7 @@ class CommandRecognition():
         r = rospy.Rate(self.rate)
         while not rospy.is_shutdown():
 
-            if self.activate and self.command == "Sleep" :
+            if self.activate and self.command == "Sleep" or self.command == "sleep" or self.command == " sleep"  :
                 #self.pub_sleep_mode.publish(True)
                 q = self.q_sleep
                 self.pub_platform_control.publish(q)
