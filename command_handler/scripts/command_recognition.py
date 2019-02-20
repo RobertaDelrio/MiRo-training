@@ -49,6 +49,8 @@ class CommandRecognition():
 
         ## Platform control Object that represents the sleep action
         self.q_sleep = platform_control()
+        ## Platform control Object that represents the miro action when it is scolded ("Bad!")
+        self.q_bad = platform_control()
         
         ## Subscriber to the topic /activation a message of type Bool that notify commands activation
         self.sub_activation = rospy.Subscriber('/activation',Bool,self.callback_activation,queue_size=1)
@@ -58,10 +60,12 @@ class CommandRecognition():
         #------------------ ADD SUBSCRIBERS TO NEW COMMANDS -------------------#
         ## Subscriber to the topic /miro_sleep a message of type platform_control that rapresents the action corresponting to the command "Sleep"
         self.sub_sleep_action = rospy.Subscriber('/miro_sleep', platform_control, self.callback_sleep_action,queue_size=1)
-          
+        ## Subscriber to the topic /miro_sad a message of type platform_control that rapresents the action corresponting to the command "Bad"
+        self.sub_sad_action = rospy.Subscriber('/miro_sad', platform_control, self.callback_sad_action,queue_size=1) 
         
         ## Publisher to the topic /switch_off a message of type Bool which disable all the commands
         self.pub_sleep_mode = rospy.Publisher('/switch_off', Bool, queue_size=0)
+        
         ## Publisher to the topic /platform/control a message of type platform_control which execute Miro actions 
         self.pub_platform_control = rospy.Publisher(topic_root + "/platform/control", platform_control, queue_size=0)
     
@@ -74,13 +78,17 @@ class CommandRecognition():
     def callback_receive_command(self, text):
 
         self.command = text.data
-        
-    ## Callback that receives a message to deactivate the commands
+
+    #------------------ ADD CALLBACK FOR NEW COMMANDS -------------------#    
+    ## Callback that receives the action corresponding to vocal command "Sleep"
     def callback_sleep_action(self, sleep):
 
         self.q_sleep = sleep
 
-    #------------------ ADD CALLBACK FOR NEW COMMANDS -------------------#
+    ## Callback that receives the action corresponding to vocal command "Sad"
+    def callback_sleep_action(self, sad):
+
+        self.q_sad = sad
 
     ## Function that check the incoming commands and, if the activation command ("Miro") is received, brings the robot in the default mode and enables the evaluation of futhers commands
     def switching_commands(self):
@@ -95,7 +103,10 @@ class CommandRecognition():
                 self.pub_platform_control.publish(q)
                 self.pub_sleep_mode.publish(True)
                 self.activate = False
-                    
+
+            elif self.activate and self.command == "Bad" or self.command == "bad" or self.command == " bad"  :
+                q = self.q_bad
+
             elif self.activate and self.command == "Dance":
                 print "Miro Dance"
 
