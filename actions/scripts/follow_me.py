@@ -25,7 +25,8 @@ class BallDetection():
 
         
     def __init__(self):
-
+        ## Node rate
+        self.rate = rospy.get_param('rate',200)
 
         ## Signal if there is a Red Ball or not
         self.ball_right = False
@@ -63,9 +64,10 @@ class BallDetection():
         else:
             self.count_right = self.count_right + 1
             if self.count_right > 3:
+                self.count_no_right = 0
                 print "BALL DETECTED IN RIGHT CAMERA"
                 self.ball_right = True
-                self.count_no_right = 0
+                
 
     def callback_camera_left(self, ball):
 
@@ -80,25 +82,32 @@ class BallDetection():
             
         else:
             self.count_left = self.count_left + 1
-            if self.count_left > 3:
+            if self.count_left > 3: 
+                self.count_no_left = 0
                 print "BALL DETECTED IN LEFT CAMERA"
                 self.ball_left = True
-                self.count_no_left = 0
+               
     
     def compared_detection(self):
+        r = rospy.Rate(self.rate)
         q = platform_control()
         while not rospy.is_shutdown():
             if self.ball_right and self.ball_left:
                 self.count_ball = self.count_ball + 1 
+                # rospy.loginfo(self.count_ball)
                 if self.count_ball > 3:
                     self.ball = True
                     print "DETECTION COMPLETE"
-                    q.body_vel.linear.x = 200.0
+                    q.body_vel.linear.x = 100.0
                     q.body_vel.angular.z = 0.0
+                self.pub_follow_ball.publish(q) ###
+
             else:
                 self.count_ball = 0
                 self.ball = False
-                #print "NO COMPLETE DETECTION"
+                #q.body_vel.linear.x = 0.0
+                #q.body_vel.angular.z = 0.0
+                print "NO COMPLETE DETECTION"
                 if self.ball_right:
                     q.body_vel.linear.x = 0.0
                     q.body_vel.angular.z = -0.2
@@ -110,6 +119,7 @@ class BallDetection():
                     q.body_vel.angular.z = 0.0
 
             self.pub_follow_ball.publish(q)
+            r.sleep()
                      
 
 if __name__== '__main__':
