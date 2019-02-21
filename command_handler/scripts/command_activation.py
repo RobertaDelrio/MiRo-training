@@ -74,7 +74,7 @@ class CommandActivation():
         r = rospy.Rate(self.rate)
         self.count = 0
         while not rospy.is_shutdown():
-            if self.command == "Miro" or self.command == "miro" or self.command == " Miro" or self.command == " miro":
+            if self.command == "Miro" or self.command == " Miro" or self.command == "miro" or self.command == " miro":
                 self.count = self.count +1
                 rospy.loginfo(self.count)
                 if self.count == 1:

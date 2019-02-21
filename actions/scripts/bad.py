@@ -41,22 +41,22 @@ class SadMode():
         q = platform_control()
         count = 0
         while not rospy.is_shutdown():
-            count = count + 1
+            #count = count + 1
             q.eyelid_closure = 0.3
-            q.sound_index_P1 = 1
+            q.sound_index_P2 = 18
             q.body_config = [0.0,1.0,0.2,0.1]
             q.body_config_speed = [0.0,-1.0,-1.0,-1.0]
             q.lights_raw = [0,0,255,0,0,255,0,0,255,0,0,255,0,0,255,0,0,255]
             q.tail = -1.0
             q.ear_rotate = [1.0,1.0]
             rospy.loginfo(count)
-            if count < 2000:
-                q.body_vel.linear.x = 0.0
-                q.body_vel.angular.z = 0.2
-            else:
-                q.body_vel.linear.x = 0.0
-                q.body_vel.angular.z = 0.0
-                q.lights_raw = [155,0,0,255,0,0,255,0,0,255,0,0,255,0,0,255,0,0]
+            # if count < 2000:
+            #     q.body_vel.linear.x = 0.0
+            #     q.body_vel.angular.z = 0.2
+            # else:
+            #     q.body_vel.linear.x = 0.0
+            #     q.body_vel.angular.z = 0.0
+            #     q.lights_raw = [155,0,0,255,0,0,255,0,0,255,0,0,255,0,0,255,0,0]
             self.pub_platform_control.publish(q)
             
             

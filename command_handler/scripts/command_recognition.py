@@ -86,7 +86,7 @@ class CommandRecognition():
         self.q_sleep = sleep
 
     ## Callback that receives the action corresponding to vocal command "Sad"
-    def callback_sleep_action(self, sad):
+    def callback_sad_action(self, sad):
 
         self.q_sad = sad
 
@@ -95,17 +95,28 @@ class CommandRecognition():
 
         q = platform_control()
         r = rospy.Rate(self.rate)
+        count = 0
         while not rospy.is_shutdown():
 
-            if self.activate and self.command == "Sleep" or self.command == "sleep" or self.command == " sleep"  :
+            if self.activate and self.command == "Sleep" or self.command == " Sleep" or self.command == "sleep" or self.command == " sleep"  :
                 #self.pub_sleep_mode.publish(True)
                 q = self.q_sleep
                 self.pub_platform_control.publish(q)
                 self.pub_sleep_mode.publish(True)
                 self.activate = False
 
-            elif self.activate and self.command == "Bad" or self.command == "bad" or self.command == " bad"  :
+            elif self.activate and self.command == "Bad" or self.command == " Bad" or  self.command == "bad" or self.command == " bad"  :
+                count = count + 1
+                if count < 2000:
+                    q.body_vel.linear.x = 0.0
+                    q.body_vel.angular.z = 0.2
+                else:
+                    q.body_vel.linear.x = 0.0
+                    q.body_vel.angular.z = 0.0
+                    q.lights_raw = [155,0,0,255,0,0,255,0,0,255,0,0,255,0,0,255,0,0]
                 q = self.q_bad
+                self.pub_platform_control.publish(q)
+                #print "MIRO BAD"
 
             elif self.activate and self.command == "Dance":
                 print "Miro Dance"
