@@ -46,7 +46,7 @@ class BallDetection():
         ## Subscriber to the topic /imu_mapping a message of type Twist
         #self.sub_imu_data = rospy.Subscriber('/imu_mapping',Twist,self.callback_last_command,queue_size=1)
         self.sub_camera_left = rospy.Subscriber('left/hough_circles/circles', CircleArrayStamped, self.callback_camera_left,queue_size=1)
-        self.pub_follow_ball = rospy.Publisher('miro/rob01/platform/control',platform_control,queue_size=0)
+        self.pub_follow_ball = rospy.Publisher('miro_follow',platform_control,queue_size=0)
         #self.pub_platform_control = rospy.Publisher('/oab', platform_control, queue_size=0)
 
  

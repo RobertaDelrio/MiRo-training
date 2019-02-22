@@ -19,5 +19,7 @@
 
 <!-- ACTIONS -->
 <include file="$(find actions)/launch/actions.launch" />
+<include file="$(find actions)/launch/double_hough_circles.launch" />
+<include file="$(find actions)/launch/double_hsv_color_filter.launch" />
 
 </launch>

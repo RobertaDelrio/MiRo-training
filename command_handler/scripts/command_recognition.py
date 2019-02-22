@@ -62,6 +62,8 @@ class CommandRecognition():
         self.sub_sleep_action = rospy.Subscriber('/miro_sleep', platform_control, self.callback_sleep_action,queue_size=1)
         ## Subscriber to the topic /miro_sad a message of type platform_control that rapresents the action corresponting to the command "Bad"
         self.sub_sad_action = rospy.Subscriber('/miro_sad', platform_control, self.callback_sad_action,queue_size=1) 
+        ## Subscriber to the topic /miro_follow a message of type platform_control that rapresents the action corresponting to the command "Follow"
+        self.sub_follow_action = rospy.Subscriber('/miro_follow', platform_control, self.callback_follow_action,queue_size=1) 
         
         ## Publisher to the topic /switch_off a message of type Bool which disable all the commands
         self.pub_sleep_mode = rospy.Publisher('/switch_off', Bool, queue_size=0)
@@ -89,6 +91,11 @@ class CommandRecognition():
     def callback_sad_action(self, sad):
 
         self.q_sad = sad
+    
+    ## Callback that receives the action corresponding to vocal command "Follow"
+    def callback_follow_action(self, follow):
+
+        self.q_follow = follow
 
     ## Function that check the incoming commands and, if the activation command ("Miro") is received, brings the robot in the default mode and enables the evaluation of futhers commands
     def switching_commands(self):
@@ -97,14 +104,14 @@ class CommandRecognition():
         r = rospy.Rate(self.rate)
         count = 0
         while not rospy.is_shutdown():
-
+            # SLEEP
             if self.activate and self.command == "Sleep" or self.command == " Sleep" or self.command == "sleep" or self.command == " sleep"  :
                 #self.pub_sleep_mode.publish(True)
                 q = self.q_sleep
                 self.pub_platform_control.publish(q)
                 self.pub_sleep_mode.publish(True)
                 self.activate = False
-
+            # BAD
             elif self.activate and self.command == "Bad" or self.command == " Bad" or  self.command == "bad" or self.command == " bad"  :
                 count = count + 1
                 if count < 2000:
@@ -113,14 +120,18 @@ class CommandRecognition():
                 else:
                     q.body_vel.linear.x = 0.0
                     q.body_vel.angular.z = 0.0
-                    q.lights_raw = [155,0,0,255,0,0,255,0,0,255,0,0,255,0,0,255,0,0]
+                    q.lights_raw = [255,0,0,255,0,0,255,0,0,255,0,0,255,0,0,255,0,0]
                 q = self.q_bad
                 self.pub_platform_control.publish(q)
                 #print "MIRO BAD"
-
+            # DANCE
             elif self.activate and self.command == "Dance":
                 print "Miro Dance"
-
+            # FOLLOW
+            elif self.activate and self.command == "Segui" or self.command == " Segui" or self.command == "segui" or self.command == " segui":
+                q = self.q_follow
+                self.pub_platform_control.publish(q)
+            
             r.sleep()
 
             """ if self.activate:
