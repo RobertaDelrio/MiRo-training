@@ -145,8 +145,8 @@ Parameters that is possible to change directly from the launch file:
 To switch from real robot to simulation ( You should launch Gazebo with miro sim as explained in [MIRO: Consequential Robotics](https://consequential.bitbucket.io/Developer_Preparation_Commission_MIRO.html)
 * Node rate: 200 Hz as default value
 * Color of the ball to detect: 
-	* RED: 
-	* BLUE:
+Change the min and maximum HSV values to detect.
+To discover the HSV values of your favorite color, check [this](https://alloyui.com/examples/color-picker/hsv).
 ## Results
 
 ## Recommendations
