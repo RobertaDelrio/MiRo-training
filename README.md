@@ -141,11 +141,12 @@ $ roslaunch command_handler command_handler.launch
 ```
 
 Parameters that is possible to change directly from the launch file:
-* Robot: rob01 or sim01 
+* Robot --> sim01 or rob01 (Default value)
+
 To switch from real robot to simulation ( You should launch Gazebo with miro sim as explained in [MIRO: Consequential Robotics](https://consequential.bitbucket.io/Developer_Preparation_Commission_MIRO.html)
-* Node rate: 200 Hz as default value
-* Color of the ball to detect: 
-Change the min and maximum HSV values to detect.
+* Node rate --> 200 Hz (Default value)
+* Color of the ball to detect --> h_limit_min = 0; h_limit_max = 10; s_limit_min = 255; s_limit_max = 150; v_limit_min = 255; v_limit_max = 50;
+Change the min and maximum HSV values to detect different colors.
 To discover the HSV values of your favorite color, check [this](https://alloyui.com/examples/color-picker/hsv).
 ## Results
 
