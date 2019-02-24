@@ -11,7 +11,7 @@
 
 <!--GESTURE BASED BEHAVIOUR-->
     <!-- MQTT BRIDGE -->
-    <!-- <include file="$(find mqtt_ros_bridge)/launch/imu_bridge.launch"/> -->
+<include file="$(find mqtt_ros_bridge)/launch/imu_bridge.launch"/>
 
 <!-- ACTIONS -->
 
