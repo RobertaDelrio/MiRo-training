@@ -26,8 +26,7 @@ The possibilities are the following:
 
 ### Description of the Modules
 
-
- ## The implementation 
+ 
 
  # Gettin Started
 
@@ -65,6 +64,7 @@ The parameter device_name must be changed with the name of your personal smartwa
 ### ROS Based Speech Interface
 
 In order to vocally interact with the robot we use a repository that contains an example for using a web interface to speak with the robot. It is based on Google Speech Demo for performing speech-to-text. We disabled the text-to-speech functionality ( look at Recommendations section to see how we did it).
+
 For this project we used the mic in [LOGITECH Wireless Headset H600](https://www.logitech.com/it-it/product/wireless-headset-h600), but any microphone connected to you laptop should work pretty fine.
 
 Create a catkin workspace and clone all the packages in the src folder
@@ -85,7 +85,6 @@ To install it:
 $ git clone sudo apt install ros-kinetic-opencv-apps
 
 ```
-
 
 ### MiRo Training
 
@@ -140,7 +139,9 @@ The following command will start the project
 $ roslaunch command_handler command_handler.launch 
 
 ```
+## Results
 
+## Recommendations
 
 
 ## Acknowledgments
