@@ -141,8 +141,10 @@ class CommandRecognition():
         count_sleep = 0
         while not rospy.is_shutdown():
 
+            #ACTIVATION COMMAND
 
             if self.command == "Miro" or self.command == " Miro" or self.command == "miro" or self.command == " miro":
+                count_miro = 0
                 count_miro = count_miro +1
                 rospy.loginfo(count_miro)
                 count_sleep = 0
