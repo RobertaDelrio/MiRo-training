@@ -56,10 +56,24 @@ The parameter device_name must be changed with the name of your personal smartwa
 ### MiRo Workstation Setup
 Download the [Miro Developer kit](http://labs.consequentialrobotics.com/miro/mdk/).
 
-Follow the instructions from Consequential Robotics [Miro: Prepare Workstation](https://consequential.bitbucket.io/Developer_Preparation_Prepare_workstation.html) to set up your workstation to work with miro. 
-Strictly follow the instructions in the Install MDK section as the following steps will rely on this. For a more clear description of how to install it step-by-step follow [Emarolab Miro Repo](https://github.com/EmaroLab/MIRO.git)
-
+Follow the instructions from Consequential Robotics [Miro: Prepare Workstation](https://consequential.bitbucket.io/Developer_Preparation_Prepare_workstation.html) to set up your workstation to work with mthe robot. 
+Strictly follow the instructions in the Install **mdk** section as the following steps will rely on this.
 Not necessary to make static IP for your workstation (laptop) while setting up connection with MiRo.
+For a clear tutorial step-by-step you should visit [Emarolab Miro Repository](https://github.com/EmaroLab/MIRO.git).
+
+### ROS Based Speech Interface
+
+In order to vocally interact with the robot we use a repository that contains an example for using a web interface to speak with the robot. It is based on Google Speech Demo for performing speech-to-text. We disabled the text-to-speech functionality ( look at Recommendations section to see how we did it).
+
+Create a catkin workspace and clone all the packages in the src folder
+
+```
+$ git clone https://github.com/EmaroLab/ros_verbal_interaction_node.git
+
+```
+
+For further information follow the instruction contained in [ros_verbal_interaction_node](https://github.com/EmaroLab/ros_verbal_interaction_node)
+
 
 ### MiRo Training
 
