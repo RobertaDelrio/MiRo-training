@@ -7,6 +7,17 @@
  MiRo is a animal-like robot developed as a prototype companion.
  It was designed with a bio-inspired architecture based on the neuroscience knowledge of the mammalian brain.
 
+ ### The Objective
+The aim of the project is to develop a software architecture for interacting with Miro using vocal and gestural commands.
+The robot attention is obtained through the vocal activation command "Miro".
+Only after the activation command the robot is able to execute further commands.
+The possibilities are the following:
+* "Good" - The robot expresses a cheerful and noisy behaviour and requires to be touched by the user to calm down.
+* "Bad" - The robot becomes upsed for being scolded and turn its back to the user.
+* "Let's go out" - The robot leaves the charge to the user that can control its body movement with gestures.
+* "Play" - The robot "follows" the movement of a red ball.
+* "Sleep" - The robot goes in a resting mode. It disables the activation command. Hence, it is not able anymore to execute the other commands until a new command "Miro" wakes it up.
+
  ### The wearable device
  In order to interact with MiRo through gestures, a smartwatch with a 9-axis IMU sensor has been used.
  [LG G WATCH R](https://www.lg.com/wearable-technology/lg-G-Watch-R-W110)
