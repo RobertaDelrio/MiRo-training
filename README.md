@@ -38,6 +38,14 @@ This project is developed using [ROS](http://wiki.ros.org/kinetic/Installation/U
 * rosdistro: kinetic
 * rosversion: 1.12.13
 
+### MiRo Workstation Setup
+Download the [Miro Developer kit](http://labs.consequentialrobotics.com/miro/mdk/).
+
+Follow the instructions from Consequential Robotics [Miro: Prepare Workstation](https://consequential.bitbucket.io/Developer_Preparation_Prepare_workstation.html) to set up your workstation to work with mthe robot. 
+Strictly follow the instructions in the Install **mdk** section as the following steps will rely on this.
+Not necessary to make static IP for your workstation (laptop) while setting up connection with MiRo.
+For a clear tutorial step-by-step you should visit [Emarolab Miro Repository](https://github.com/EmaroLab/MIRO.git).
+
  ### The wearable device
  In order to interact with MiRo through gestures, a smartwatch with a 9-axis IMU sensor has been used.
  [LG G WATCH R](https://www.lg.com/wearable-technology/lg-G-Watch-R-W110)
@@ -53,17 +61,11 @@ In order to succesfully subscribe to MQTT topics and publish contents of MQTT me
 To work with the current project some parameter must be modified in the imu_bridge.launch 
 The parameter device_name must be changed with the name of your personal smartwatch. 
 
-### MiRo Workstation Setup
-Download the [Miro Developer kit](http://labs.consequentialrobotics.com/miro/mdk/).
-
-Follow the instructions from Consequential Robotics [Miro: Prepare Workstation](https://consequential.bitbucket.io/Developer_Preparation_Prepare_workstation.html) to set up your workstation to work with mthe robot. 
-Strictly follow the instructions in the Install **mdk** section as the following steps will rely on this.
-Not necessary to make static IP for your workstation (laptop) while setting up connection with MiRo.
-For a clear tutorial step-by-step you should visit [Emarolab Miro Repository](https://github.com/EmaroLab/MIRO.git).
 
 ### ROS Based Speech Interface
 
 In order to vocally interact with the robot we use a repository that contains an example for using a web interface to speak with the robot. It is based on Google Speech Demo for performing speech-to-text. We disabled the text-to-speech functionality ( look at Recommendations section to see how we did it).
+For this project we used the mic in [LOGITECH Wireless Headset H600](https://www.logitech.com/it-it/product/wireless-headset-h600), but any microphone connected to you laptop should work pretty fine.
 
 Create a catkin workspace and clone all the packages in the src folder
 
@@ -72,7 +74,17 @@ $ git clone https://github.com/EmaroLab/ros_verbal_interaction_node.git
 
 ```
 
-For further information follow the instruction contained in [ros_verbal_interaction_node](https://github.com/EmaroLab/ros_verbal_interaction_node)
+For further information follow the instruction contained in [ros_verbal_interaction_node](https://github.com/EmaroLab/ros_verbal_interaction_node) repository.
+
+### OpenCV apps 
+
+The images streaming from Miro's camera are processed using the package [opencv_apps](http://wiki.ros.org/opencv_apps).
+The camera frames are subject to color segmentation and hugh circles detection.
+To install it:
+```
+$ git clone sudo apt install ros-kinetic-opencv-apps
+
+```
 
 
 ### MiRo Training
@@ -81,7 +93,6 @@ Create a catkin workspace and clone all the packages in the src folder
 
 ```
 $ git clone https://github.com/EmaroLab/MiRo-training.git
-$ cd MiRo-training
 $ catkin_make
 $ source devel/setup.bash
 ```
@@ -106,18 +117,11 @@ $ ifconfig
 ```
 
 Open the IMU_stream app on the smartwatch 
-
-Launch the mqtt_bridge in a new terminal
-```
-$ cd catkin_ws
-$ cd source devel/setup.bash
-$ roslaunch mqtt_bridge imu_bridge.launch
-```
-To test if the connection between smartwatch and ROS is working start to transmitt the data from IMU_stream app on the smartwatch and check in a new terminal
+To test if the connection between smartwatch and ROS is working, start to transmitt the data from IMU_stream app on the smartwatch and check in a new terminal
 ```
 $ rostopic echo \imu_left_hand
 ```
-It should show the Imu data published by the smartwatch.
+It should see the Imu data published by the smartwatch.
 
 Connect the Miro robot to the ROS Master
 
@@ -129,7 +133,13 @@ Insert your IP after ROS_MASTER_IP
 
 For more detailed instructions see [MIRO: Commission MIRO](https://consequential.bitbucket.io/Developer_Preparation_Commission_MIRO.html)
 
+Open in a new terminal your catkin_ws
 The following command will start the project
+
+```
+$ roslaunch command_handler command_handler.launch 
+
+```
 
 
 
