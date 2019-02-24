@@ -65,7 +65,7 @@ The parameter device_name must be changed with the name of your personal smartwa
 
 In order to vocally interact with the robot we use a repository that contains an example for using a web interface to speak with the robot. It is based on Google Speech Demo for performing speech-to-text. We disabled the text-to-speech functionality ( look at Recommendations section to see how we did it).
 
-For this project we used the mic in [LOGITECH Wireless Headset H600](https://www.logitech.com/it-it/product/wireless-headset-h600), but any microphone connected to you laptop should work pretty fine.
+For this project we used the mic in [LOGITECH Wireless Headset H600](https://www.logitech.com/it-it/product/wireless-headset-h600), but any microphone connected to your laptop should work pretty fine.
 
 Create a catkin workspace and clone all the packages in the src folder
 
@@ -139,6 +139,14 @@ The following command will start the project
 $ roslaunch command_handler command_handler.launch 
 
 ```
+
+Parameters that is possible to change directly from the launch file:
+* Robot: rob01 or sim01 
+To switch from real robot to simulation ( You should launch Gazebo with miro sim as explained in [MIRO: Consequential Robotics](https://consequential.bitbucket.io/Developer_Preparation_Commission_MIRO.html)
+* Node rate: 200 Hz as default value
+* Color of the ball to detect: 
+	* RED: 
+	* BLUE:
 ## Results
 
 ## Recommendations
