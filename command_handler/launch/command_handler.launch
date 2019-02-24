@@ -14,7 +14,7 @@
 
 <!-- HANDLING COMMANDS -->
 
-<node name="command_activation" pkg="command_handler" type="command_activation.py" />
+<!-- <node name="command_activation" pkg="command_handler" type="command_activation.py" /> -->
 <node name="command_recognition" pkg="command_handler" type="command_recognition.py" output = "screen"/>
 
 <!-- ACTIONS -->

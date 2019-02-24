@@ -41,7 +41,7 @@ class CommandActivation():
         print "topic_root", topic_root
 
 
-        self.activation = False
+        #self.activation = False
         ## Initialization of the string to evaluate
         self.command = "string"
         self.count = 0
@@ -53,7 +53,7 @@ class CommandActivation():
         self.pub_activation = rospy.Publisher('/activation', Bool, queue_size=0)
         ## Publisher to the topic /platform/control a message of type platform_control which brings Miro in a default configuration
         self.pub_platform_control = rospy.Publisher(topic_root + "/platform/control", platform_control, queue_size=0)
-
+        self.pub_try = rospy.Publisher('/try', Bool, queue_size=0)
     ## Callback function that receive and save the user's voice command as text
     def callback_receive_command(self, text):
 
@@ -65,7 +65,8 @@ class CommandActivation():
         if switch_off:
             self.count = 0
             self.command = "string"
-            
+            #self.activate = False
+            #self.pub_activation.publish(False)            
             
 
     ## Function that check the incoming commands and, if the activation command ("Miro") is received, brings the robot in the default mode and enables the evaluation of futhers commands
@@ -85,11 +86,10 @@ class CommandActivation():
                     q.body_config = [0.0,0.0,0.0,0.0]
                     q.body_config_speed = [0.0,-1.0,-1.0,-1.0]
                     self.pub_platform_control.publish(q)
-                self.activation = True
+                    self.pub_try.publish(True)
+                #self.activate = True
                 self.pub_activation.publish(True)
             r.sleep()
-                
-
 
 if __name__== '__main__':
 

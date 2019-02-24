@@ -6,6 +6,7 @@ import rospy
 from std_msgs.msg import String
 from sensor_msgs.msg import Image,CompressedImage,Range,Imu
 from geometry_msgs.msg import Twist,Pose
+import random
 
 import miro_msgs
 from miro_msgs.msg import platform_config,platform_sensors,platform_state,platform_mics,platform_control,core_state,core_control,core_config,bridge_config,bridge_stream
@@ -21,18 +22,29 @@ from miro_constants import miro
 
 from datetime import datetime
 
-class TurnLeft():
+class GoodMode():
     def __init__(self):
-        self.pub_platform_control = rospy.Publisher('miro/rob01/platform/control',platform_control,queue_size=0)
+        ## Node rate
+        self.rate = rospy.get_param('rate',200)
+        self.pub_platform_control = rospy.Publisher('/miro_good',platform_control,queue_size=0)
 
-    def miro_turn_left(self):
+    def miro_good(self):
+        r = rospy.Rate(self.rate)
         q = platform_control()
+        count = 0
         while not rospy.is_shutdown():
-            q.body_vel.linear.x = 0.0
-            q.body_vel.angular.z = 1.4
+            q.eyelid_closure = 0.2
+            q.sound_index_P1 = 1
+            q.body_config = [0.0,0.25,0.0,-0.25]
+            q.body_config_speed = [0.0,-1.0,-1.0,-1.0]
+            q.lights_raw = [0,255,0,255,0,255,0,0,255,0,255,0,255,0,255,0,255,0]
+            q.tail = 68
             self.pub_platform_control.publish(q)
 
+            r.sleep()
+
+
 if __name__== '__main__':
-    rospy.init_node('sleep')
-    sleep = SleepMode()
-    sleep.miro_sleep()
+    rospy.init_node('good')
+    good = GoodMode()
+    good.miro_good()
