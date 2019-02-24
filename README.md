@@ -9,20 +9,22 @@
 
  ### The Objective
 The aim of the project is to develop a software architecture for interacting with Miro using vocal and gestural commands.
-The robot attention is obtained through the vocal activation command "Miro".
+The robot attention is obtained through the vocal activation command **"Miro"**.
 Only after the activation command the robot is able to execute further commands.
 The possibilities are the following:
-* "Good" - The robot expresses a cheerful and noisy behaviour and requires to be touched by the user to calm down.
-* "Bad" - The robot becomes upsed for being scolded and turn its back to the user.
-* "Let's go out" - The robot leaves the charge to the user that can control its body movement with gestures.
-* "Play" - The robot "follows" the movement of a red ball.
-* "Sleep" - The robot goes in a resting mode. It disables the activation command. Hence, it is not able anymore to execute the other commands until a new command "Miro" wakes it up.
+* **"Good"** - The robot expresses a cheerful and noisy behaviour and requires to be touched by the user to calm down.
+* **"Bad"** - The robot becomes upsed for being scolded and turn its back to the user.
+* **"Let's go out"** - The robot leaves the charge to the user that can control its body movement with gestures.
+* **"Play"** - The robot "follows" the movement of a red ball.
+* **"Sleep"** - The robot goes in a resting mode. It disables the activation command. Hence, it is not able anymore to execute the other commands until a new command "Miro" wakes it up.
 
- ### The wearable device
- In order to interact with MiRo through gestures, a smartwatch with a 9-axis IMU sensor has been used.
- [LG G WATCH R](https://www.lg.com/wearable-technology/lg-G-Watch-R-W110)
 
- ### The architecture
+
+ ## The architecture
+
+### Overall Architecture
+
+### Description of the Modules
 
 
  ## The implementation 
@@ -36,11 +38,14 @@ This project is developed using [ROS](http://wiki.ros.org/kinetic/Installation/U
 * rosdistro: kinetic
 * rosversion: 1.12.13
 
+ ### The wearable device
+ In order to interact with MiRo through gestures, a smartwatch with a 9-axis IMU sensor has been used.
+ [LG G WATCH R](https://www.lg.com/wearable-technology/lg-G-Watch-R-W110)
+Follow the instructions reported in [imu_stream](https://github.com/EmaroLab/imu_stream) to download the app for both the smartphone and the smartwatch.
+
 ### Smartwatch and Smartphone Setup
 In order to publish imu sensor data from your smartwatch to ROS nodes you must have a smartwatch paired with a smartphone.
 The smartphone acts as the bridge between the smartwatch and the ros master running on your computer.
-
-Follow the instructions reported in [imu_stream](https://github.com/EmaroLab/imu_stream) to download the app for both the smartphone and the smartwatch.
 
 ### MQTT ROS Bridge
 
@@ -52,7 +57,7 @@ The parameter device_name must be changed with the name of your personal smartwa
 Download the [Miro Developer kit](http://labs.consequentialrobotics.com/miro/mdk/).
 
 Follow the instructions from Consequential Robotics [Miro: Prepare Workstation](https://consequential.bitbucket.io/Developer_Preparation_Prepare_workstation.html) to set up your workstation to work with miro. 
-Strictly follow the instructions in the Install MDK section as the following steps will rely on this.
+Strictly follow the instructions in the Install MDK section as the following steps will rely on this. For a more clear description of how to install it step-by-step follow [Emarolab Miro Repo](https://github.com/EmaroLab/MIRO.git)
 
 Not necessary to make static IP for your workstation (laptop) while setting up connection with MiRo.
 
