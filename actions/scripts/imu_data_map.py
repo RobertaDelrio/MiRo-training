@@ -1,7 +1,7 @@
-
 #!/usr/bin/env python
 
-################################################################
+################################################################ 
+
 ## \file imu_data_map.py
 ## \brief The node imu_data_map.py subscribes to the smartwatch's accelerometer data and publish the linear and angular velocities conveniently mapped.
 ## @n More in details:

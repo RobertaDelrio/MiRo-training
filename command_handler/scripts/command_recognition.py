@@ -187,14 +187,14 @@ class CommandRecognition():
                 print "MIRO BAD"
             
             # FOLLOW
-            elif self.activate and (self.command == "Come" or self.command == " Come" or self.command == "come" or self.command == " come"):
+            elif self.activate and (self.command == "Play" or self.command == " Play" or self.command == "play" or self.command == " play"):
                 count_bad = 0
                 q = self.q_follow
                 self.pub_platform_control.publish(q)
-            # DANCE
-            elif self.activate and (self.command == "Dance" or self.command == " Dance" or self.command == "dance" or self.command == " dance"):
+            # LET'S GO OUT
+            elif self.activate and (self.command == "Let's go out" or self.command == " Let's go out"):
                 q = self.q_gbb
-                print "Miro Dance"
+                print "Let's go out"
             # GOOD
             elif self.activate and (self.command == "Good" or self.command == " Good" or self.command == "good" or self.command == " good"):
                 count_bad = 0
