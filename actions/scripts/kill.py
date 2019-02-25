@@ -26,6 +26,8 @@ from datetime import datetime
 ## \brief The node kill.py implements the action corresponding to the command "Kill".
 ## @n The Robot moves down its head and squint the eyes. It changes its light pattern to Red and emits an aggressive sound.
 
+##\brief The class KillMode implements a angry behavior for the robot
+
 class KillMode():
 
     def __init__(self):

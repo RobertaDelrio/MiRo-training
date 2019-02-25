@@ -26,6 +26,7 @@ from datetime import datetime
 ## @n The node subscribe to the circles detected in the Left and Right camera.
 ## @n The Robot moves in order to keep the ball in both camera frames.
 
+## \brief The class BallDetection implements the detection of the circles in the cameras and the robot behavior to keep the circles in sight
 class BallDetection():
 
         

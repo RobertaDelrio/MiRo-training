@@ -38,6 +38,8 @@ def fmt(x, f):
 ## @n The node subscribes to /platform/sensors and reads the values of the capacitive sensors on Miro's body and head.
 ## @n When the user touches Miro it changes behavior and lightening pattern.
 
+## The class GoodMode implements a cheerful behavior and allows to interact with Miro's capacitive body
+
 class GoodMode():
 
     def __init__(self):
