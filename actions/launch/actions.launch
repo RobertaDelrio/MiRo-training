@@ -15,7 +15,7 @@
 
 <!-- ACTIONS -->
 
-<node name="follow_me" pkg="actions" type="follow_me.py" /> 
+<node name="play" pkg="actions" type="play.py" /> 
 <node name="sleep" pkg="actions" type="sleep.py" />
 <node name="bad" pkg="actions" type="bad.py" />
 <node name="good" pkg="actions" type="good.py" />
