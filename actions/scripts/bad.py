@@ -27,6 +27,7 @@ from datetime import datetime
 ## @n The Robot moves down its head and inclines it. It turns its back to the user and change its light pattern from Blue to Red.
 
 ## \brief The class SadMode implements a robot sad behaviour 
+
 class SadMode():
 
     def __init__(self):
