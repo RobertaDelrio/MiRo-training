@@ -195,7 +195,9 @@ class CommandRecognition():
                 self.pub_platform_control.publish(q)
             # LET'S GO OUT
             elif self.activate and (self.command == "Let's go out" or self.command == " Let's go out"):
+                count_bad = 0
                 q = self.q_gbb
+                self.pub_platform_control.publish(q)  
                 print "Let's go out"
             # GOOD
             elif self.activate and (self.command == "Good" or self.command == " Good" or self.command == "good" or self.command == " good"):
