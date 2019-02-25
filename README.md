@@ -14,7 +14,7 @@ Only after the activation command the robot is able to execute further commands.
 The possibilities are the following:
 * **"Good"** - The robot expresses a cheerful and noisy behaviour and requires to be touched by the user to calm down.
 * **"Bad"** - The robot becomes upsed for being scolded and turn its back to the user.
-* **"Let's go out"** - The robot leaves the charge to the user that can control its body movement with gestures.
+* **"Let's go out"** - The robot leaves the charge to the user that can control its body movement with gestures. The gesture to use are summarized [here](https://ibb.co/4MggTyw)
 * **"Play"** - The robot "follows" the movement of a red ball.
 * **"Kill"** - The robot becomes angry. It lights up in red and produces pirate sounds.
 * **"Sleep"** - The robot goes in a resting mode. It disables the activation command. Hence, it is not able anymore to execute the other commands until a new command "Miro" wakes it up.
