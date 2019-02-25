@@ -25,11 +25,14 @@ from datetime import datetime
 ## \file bad.py 
 ## \brief The node bad.py implements the action corresponding to the command "Bad".
 ## @n The Robot moves down its head and inclines it. It turns its back to the user and change its light pattern from Blue to Red.
+##
 
-## \brief The class SadMode implements a robot sad behaviour 
+## \brief The class SadMode implements a robot sad behaviour
 
 class SadMode():
 
+
+    ## Constructor
     def __init__(self):
 
         ## Node rate
