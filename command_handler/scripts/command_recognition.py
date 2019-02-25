@@ -52,12 +52,14 @@ class CommandRecognition():
         self.q_sleep = platform_control()
         ## Platform control Object that represents the miro action when it is scolded ("Bad")
         self.q_sad = platform_control()
-        ## Platform control Object that represents the miro action when it is praised ("Good")
-        self.q_good = platform_control()
         ## Platform control Object that represents the miro action when it follows the Ball ("Play")
         self.q_play = platform_control()
         ## platform_control object that rapresents the Gesture Based Behavior ("Let's go out")
         self.q_gbb = platform_control()
+        ## Platform control Object that represents the miro action when it is praised ("Good")
+        self.q_good = platform_control()
+        ## Platform control Object that represents the miro action when it is praised ("Kill")
+        self.q_kill = platform_control()
 
         ## Subscriber to the topic /speech_to_text a message of type String that cointains the vocal command converted in text
         self.sub_speech_to_text = rospy.Subscriber('/speech_to_text', String, self.callback_receive_command,queue_size=1)
@@ -73,12 +75,8 @@ class CommandRecognition():
         self.sub_gbb = rospy.Subscriber('/gbb', platform_control, self.callback_gbb,queue_size=1) 
         ## Subscriber to the topic /miro_good a message of type platform_control that rapresents the action corresponting to the command "Good"
         self.sub_good_action = rospy.Subscriber('/miro_good', platform_control, self.callback_good_action,queue_size=1) 
-
-        # ## Subscriber to the topic /miro_relax a message of type platform_control that rapresents the action corresponting to the command "Good"
-        # self.sub_good_action = rospy.Subscriber('/miro_good', platform_control, self.callback_good_action,queue_size=1) 
-
-        # ## Publisher to the topic /relax a message of type Bool which disable all the commands
-        # self.pub_relax_mode = rospy.Publisher('/relax', Bool, queue_size=0) 
+        ## Subscriber to the topic /miro_good a message of type platform_control that rapresents the action corresponting to the command "Kill"
+        self.sub_kill_action = rospy.Subscriber('/miro_kill', platform_control, self.callback_kill_action,queue_size=1) 
 
         ## Publisher to the topic /platform/control a message of type platform_control which execute Miro actions 
         self.pub_platform_control = rospy.Publisher(topic_root + "/platform/control", platform_control, queue_size=0)
@@ -115,12 +113,11 @@ class CommandRecognition():
 
         self.q_good = good
     
-    # ## Callback that receives the action corresponding to vocal command "Relax"
-    # def callback_good_action(self, relax):
+    ## Callback that receives the action to be executed when the vocal command is "Kill"
+    def callback_kill_action(self, kill):
 
-    #     self.q_relax = relax
-    #     # sensori?
-
+        self.q_kill = kill
+    
     ## Function that check the incoming commands and publish the corresponding action
     ## @n The command "Miro" brings the robot in a default configuration the first time is used. The variable self.activate is set to True and enables the evauation of the other commands.
     ## @n The command "Bad" is executed only if self.active is True and publish the action managed by the node bad.py
@@ -171,8 +168,7 @@ class CommandRecognition():
                 self.activate = False
                 count_sleep = 1
                 print "Sleep"
-                
-
+            
             # BAD
             elif self.activate and (self.command == "Bad" or self.command == " Bad" or  self.command == "bad" or self.command == " bad"):
                 count_bad = count_bad + 1
@@ -185,19 +181,21 @@ class CommandRecognition():
                     q.body_vel.angular.z = 0.0
                     q.lights_raw = [255,0,0,255,0,0,255,0,0,255,0,0,255,0,0,255,0,0]
                     self.pub_platform_control.publish(q)
-                print "MIRO BAD"
+                print "Bad"
             
             # PLAY
             elif self.activate and (self.command == "Play" or self.command == " Play" or self.command == "play" or self.command == " play"):
                 count_bad = 0
                 q = self.q_play
                 self.pub_platform_control.publish(q)
+
             # LET'S GO OUT
             elif self.activate and (self.command == "Let's go out" or self.command == " Let's go out"):
                 count_bad = 0
                 q = self.q_gbb
                 self.pub_platform_control.publish(q)  
                 print "Let's go out"
+
             # GOOD
             elif self.activate and (self.command == "Good" or self.command == " Good" or self.command == "good" or self.command == " good"):
                 count_bad = 0
@@ -205,16 +203,20 @@ class CommandRecognition():
                 self.pub_platform_control.publish(q)  
                 print "Good"
 
+            # KILL
+            elif self.activate and (self.command == "Kill" or self.command == " Kill" or self.command == "kill" or self.command == " kill"):
+                count_bad = 0
+                q = self.q_kill
+                self.pub_platform_control.publish(q)  
+                print "Kill"
 
+            # HANDLING OF DIFFERENT COMMANDS
             elif count_sleep == 1 and (not self.activate and not self.command == "Sleep"):
                 rospy.loginfo(count_sleep)
                 q.eyelid_closure = 1
                 self.pub_platform_control.publish(q)
 
             r.sleep()
-            # # RELAX
-            # elif self.activate and (self.command == "Relax" or self.command == " Relax" or self.command == "relax" or self.command == " relax"):
-           
 
 if __name__== '__main__':
 

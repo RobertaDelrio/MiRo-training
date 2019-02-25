@@ -15,10 +15,12 @@
 
 <!-- ACTIONS -->
 
-<node name="play" pkg="actions" type="play.py" /> 
-<node name="sleep" pkg="actions" type="sleep.py" />
-<node name="bad" pkg="actions" type="bad.py" />
-<node name="good" pkg="actions" type="good.py" />
+<node name ="play" pkg="actions" type="play.py" /> 
+<node name ="sleep" pkg="actions" type="sleep.py" />
+<node name ="bad" pkg="actions" type="bad.py" />
+<node name ="good" pkg="actions" type="good.py" />
 <node name ="imu_data_map" pkg="actions" type="imu_data_map.py" />
 <node name ="gbb_miro" pkg="actions" type="gbb_miro.py" />
+<node name ="kill" pkg="actions" type="kill.py" />
+
 </launch>
