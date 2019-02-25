@@ -125,6 +125,7 @@ class BallDetection():
                     print "DETECTION COMPLETE"
                     q.body_vel.linear.x = 100.0
                     q.body_vel.angular.z = 0.0
+                    q.lights_raw = [255,150,0,255,150,0,255,150,0,255,150,0,255,150,0,255,150,0]
                 self.pub_follow_ball.publish(q)
 
             else:

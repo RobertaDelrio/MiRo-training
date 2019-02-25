@@ -100,7 +100,7 @@ class SmartwatchData():
         else:
 
             sw_vel.linear.x=self.last_acc[0]*50
-            sw_vel.angular.z=self.last_acc[1]*0.50
+            sw_vel.angular.z=self.last_acc[1] #*0.50
             s_vel.linear.x = 0.0
             s_vel.angular.z = 0.0
             #print ('miro move')

@@ -103,6 +103,8 @@ class CommandRecognition():
     def callback_play_action(self, play):
 
         self.q_play = play
+        self.q_play.body_config = [0.0,0.0,0.0,0.0]
+        self.q_play.body_config_speed = [0.0,-1.0,-1.0,-1.0]
     
     ## Callback that receives the action to be executed when the vocal command is "Let's go"
     def callback_gbb(self,gbb):
@@ -189,8 +191,10 @@ class CommandRecognition():
                 self.pub_platform_control.publish(q)
 
             # LET'S GO OUT
-            elif self.activate and (self.command == "Let's go out" or self.command == " Let's go out"):
+            elif self.activate and (self.command == "Let's go out" or self.command == " Let's go out" or self.command == "let's go out" or self.command == " let's go out"):
                 count_bad = 0
+                q.body_config = [0.0,0.0,0.0,0.0]
+                q.body_config_speed = [0.0,-1.0,-1.0,-1.0]
                 q = self.q_gbb
                 self.pub_platform_control.publish(q)  
                 print "Let's go out"
