@@ -19,7 +19,7 @@ The possibilities are the following:
 * **"Kill"** - The robot becomes angry. It lights up in red and produces pirate sounds.
 * **"Sleep"** - The robot goes in a resting mode. It disables the activation command. Hence, it is not able anymore to execute the other commands until a new command "Miro" wakes it up.
 
- ## [The Software Architecture](https://imgur.com/a/ER1nQgc)
+ ## [The Software Architecture](https://ibb.co/4MggTyw)
  The Software architecture can be seen by clicking on the section title. 
  It shows the ROS node (blocks) and the rostopic (blue) used by the nodes to communicate.
 
