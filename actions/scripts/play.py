@@ -21,6 +21,11 @@ from miro_constants import miro
 
 from datetime import datetime
 
+## \file play.py 
+## \brief The node play.py implements the action corresponding to the command "Play".
+## @n The node subscribe to the circles detected in the Left and Right camera.
+## @n The Robot moves in order to keep the ball in both camera frames.
+
 class BallDetection():
 
         
@@ -143,7 +148,7 @@ class BallDetection():
                      
 
 if __name__== '__main__':
-    rospy.init_node('follow_me')
+    rospy.init_node('play')
     ball = BallDetection()
     ball.compared_detection()
 
