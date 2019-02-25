@@ -35,7 +35,7 @@ class SleepMode():
         ## Publisher to the topic /miro_sleep a message of type platform_control which correspont to the sleep action
         self.pub_platform_control = rospy.Publisher('/miro_sleep',platform_control,queue_size=0)
     
-    ## Function that sets the parameters of the structure platform_control corresponding to action sleep
+    ## Function that sets the parameters of the structure platform_control corresponding to action "Sleep"
     def miro_sleep(self):
 
         r = rospy.Rate(self.rate)

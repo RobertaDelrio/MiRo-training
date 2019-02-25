@@ -25,31 +25,44 @@ class BallDetection():
 
         
     def __init__(self):
+
         ## Node rate
         self.rate = rospy.get_param('rate',200)
 
-        ## Signal if there is a Red Ball or not
-        self.ball_right = False
-        self.ball_left = False
-        self.ball = False
+        ## Initialization of the CircleArrayStamped variable in the Right callback
         self.detect_right = 0
+        ## Initialization of the CircleArrayStamped variable in the Left callback
         self.detect_left = 0
-        self.count_right = 0
-        self.count_left = 0
-        self.count_no_right = 0
-        self.count_no_left = 0
-        self.count_ball = 0
-        self.radius_right = 0
-        self.radius_left = 0
-        ## Subscriber to the topic /platform/sensors a message of type platform_sensors that cointains the sonar readings
-        self.sub_camera_right = rospy.Subscriber('right/hough_circles/circles', CircleArrayStamped, self.callback_camera_right,queue_size=1)
-        ## Subscriber to the topic /imu_mapping a message of type Twist
-        #self.sub_imu_data = rospy.Subscriber('/imu_mapping',Twist,self.callback_last_command,queue_size=1)
-        self.sub_camera_left = rospy.Subscriber('left/hough_circles/circles', CircleArrayStamped, self.callback_camera_left,queue_size=1)
-        self.pub_follow_ball = rospy.Publisher('miro_follow',platform_control,queue_size=0)
-        #self.pub_platform_control = rospy.Publisher('/oab', platform_control, queue_size=0)
+        
+        ## Flag for Red Ball detected in Right camera
+        self.ball_right = False
+        ## Flag for Red Ball detected in Leftcamera
+        self.ball_left = False
+        ## Flag for Red Ball detected in Both cameras
+        self.ball = False
 
- 
+        ## Number of positive detection on Right camera
+        self.count_right = 0
+        ## Number of positive detection on Left camera
+        self.count_left = 0
+        ## Number of negative detection on Right camera
+        self.count_no_right = 0
+        ## Number of negative detection on Left camera
+        self.count_no_left = 0
+        ## Number of positive detection on Both cameras
+        self.count_ball = 0
+
+        ## Subscriber to the topic /right/hough_circles/circles a message of type CircleArrayStamped that cointains the information about the circles detected in the Right camera.
+        self.sub_camera_right = rospy.Subscriber('right/hough_circles/circles', CircleArrayStamped, self.callback_camera_right,queue_size=1)
+        ## Subscriber to the topic /right/hough_circles/circles a message of type CircleArrayStamped that cointains the information about the circles detected in the Left camera.
+        self.sub_camera_left = rospy.Subscriber('left/hough_circles/circles', CircleArrayStamped, self.callback_camera_left,queue_size=1)
+        ## Publisher to the topic /miro_play a message of type platform_control which corresponds to the "Play" action.
+        self.pub_follow_ball = rospy.Publisher('miro_play',platform_control,queue_size=0)
+        
+
+    ## Callback that receive the message that contains the information of the circles detected in the Right camera.
+    ## @n If the ball is detected for more than 3 times the flag self.ball_right is set to True.
+    ## @n If the ball is not detected for more than 3 times the flag self.ball_right is set to False.
     def callback_camera_right(self, ball):
 
         self.detect_right = ball.circles
@@ -68,7 +81,9 @@ class BallDetection():
                 print "BALL DETECTED IN RIGHT CAMERA"
                 self.ball_right = True
                 
-
+    ## Callback that receive the message that contains the information of the circles detected in the Left camera.
+    ## @n If the ball is detected for more than 3 times the flag self.ball_right is set to True.
+    ## @n If the ball is not detected for more than 3 times the flag self.ball_right is set to False.
     def callback_camera_left(self, ball):
 
         self.detect_left = ball.circles
@@ -87,10 +102,15 @@ class BallDetection():
                 print "BALL DETECTED IN LEFT CAMERA"
                 self.ball_left = True
                
-    
+    ## Function that evaluate the detection of the ball and publish a message of type platform_control in order to keep the ball always in sight.
+    ## @n If the ball is detected in the Right camera, the robot will rotate towards right until the ball is detected also by the Left camera.
+    ## @n If the ball is detected in the Left camera, the robot will rotate towards left until the ball is detected also by the Right camera.
+    ## @n If the ball is detected in both cameras, the robot will go forward to reach the ball.
     def compared_detection(self):
+
         r = rospy.Rate(self.rate)
         q = platform_control()
+
         while not rospy.is_shutdown():
             if self.ball_right and self.ball_left:
                 self.count_ball = self.count_ball + 1 
@@ -100,7 +120,7 @@ class BallDetection():
                     print "DETECTION COMPLETE"
                     q.body_vel.linear.x = 100.0
                     q.body_vel.angular.z = 0.0
-                self.pub_follow_ball.publish(q) ###
+                self.pub_follow_ball.publish(q)
 
             else:
                 self.count_ball = 0
