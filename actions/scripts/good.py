@@ -95,7 +95,7 @@ class GoodMode():
                 q.eyelid_closure = 0.1
                 q.lights_raw = [255,129,0,255,129,0,255,129,0,255,129,0,255,129,0,255,129,0]
                 q.tail = 0.0
-                q.body_config = [0.0,0.2,0.0,-0.2]
+                q.body_config = [0.0,0.29,-0.6,-0.26]
                 q.body_config_speed = [0.0,-1.0,-1.0,-1.0]
                 q.ear_rotate = [0.5,0.5]
             else:

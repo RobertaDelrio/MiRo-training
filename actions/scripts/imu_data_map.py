@@ -40,7 +40,7 @@ class SmartwatchData():
         ##Last acelleration data received from smartwatch
         self.last_acc = [0,0,0]
         ##Control mode set from launch file
-        self.mode = rospy.get_param('control_mode', 'basic')
+        self.mode = rospy.get_param('control_mode', 'advanced')
         ##Subscriber to the topic /inertial a message of type Imu
         self.sub_smartwatch = rospy.Subscriber('/inertial',Imu,self.callback_smartwatch_data,queue_size=1)
         ##Publisher on the topic /imu_mapping a message of type Twist
@@ -92,15 +92,15 @@ class SmartwatchData():
         elif -7 < self.last_acc[1] > 7:
 
             sw_vel.linear.x = 0.0
-            sw_vel.angular.z = self.last_acc[1]*0.25
+            sw_vel.angular.z = self.last_acc[1]*0.100
             s_vel.linear.x = 0.0
-            s_vel.angular.z = self.last_acc[1]*0.25
+            s_vel.angular.z = self.last_acc[1]*0.100
 
         #Advanced Control Gesture: Combination of Basic Control Gesture
         else:
 
             sw_vel.linear.x=self.last_acc[0]*50
-            sw_vel.angular.z=self.last_acc[1]*0.25
+            sw_vel.angular.z=self.last_acc[1]*0.50
             s_vel.linear.x = 0.0
             s_vel.angular.z = 0.0
             #print ('miro move')
