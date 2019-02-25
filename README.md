@@ -16,11 +16,12 @@ The possibilities are the following:
 * **"Bad"** - The robot becomes upsed for being scolded and turn its back to the user.
 * **"Let's go out"** - The robot leaves the charge to the user that can control its body movement with gestures.
 * **"Play"** - The robot "follows" the movement of a red ball.
+* **"Kill"** - The robot becomes angry. It lights up in red and produces pirate sounds.
 * **"Sleep"** - The robot goes in a resting mode. It disables the activation command. Hence, it is not able anymore to execute the other commands until a new command "Miro" wakes it up.
 
-
-
- ## The architecture
+ ## [The Software Architecture](https://imgur.com/a/ER1nQgc)
+ The Software architecture can be seen by clicking on the section title. 
+ It shows the ROS node (blocks) and the rostopic (blue) used by the nodes to communicate.
 
 ### Overall Architecture
 
@@ -63,7 +64,7 @@ The parameter device_name must be changed with the name of your personal smartwa
 
 ### ROS Based Speech Interface
 
-In order to vocally interact with the robot we use a repository that contains an example for using a web interface to speak with the robot. It is based on Google Speech Demo for performing speech-to-text. We disabled the text-to-speech functionality ( look at Recommendations section to see how we did it).
+In order to vocally interact with the robot we use a repository that contains an example for using a web interface to speak with the robot. It is based on Google Speech Demo for performing speech-to-text. We disabled the text-to-speech functionality.
 
 For this project we used the mic in [LOGITECH Wireless Headset H600](https://www.logitech.com/it-it/product/wireless-headset-h600), but any microphone connected to your laptop should work pretty fine.
 
@@ -118,7 +119,7 @@ $ ifconfig
 Open the IMU_stream app on the smartwatch 
 To test if the connection between smartwatch and ROS is working, start to transmitt the data from IMU_stream app on the smartwatch and check in a new terminal
 ```
-$ rostopic echo \imu_left_hand
+$ rostopic echo \inertial
 ```
 It should see the Imu data published by the smartwatch.
 
@@ -148,8 +149,11 @@ Parameters that is possible to change directly from the launch file:
 	h_limit_min = 0; h_limit_max = 10; s_limit_min = 255; s_limit_max = 150; v_limit_min = 255; v_limit_max = 50;
 	Change the min and maximum HSV values to detect different colors.
 	To discover the HSV values of your favorite color, check [this](https://alloyui.com/examples/color-picker/hsv).
+
 ## Results
 
+A video of the experiments can be found [HERE]
+Each partecipant was asked to fill the [questionaire] in order to evaluate the interaction with the robot.
 ## Recommendations
 
 
