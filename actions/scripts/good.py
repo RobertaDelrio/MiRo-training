@@ -22,7 +22,8 @@ from miro_constants import miro
 
 from datetime import datetime
 
-def fmt(x, f): #function used for conversion from byteArray to String (The values that we get for the head touch sensors are byteArrays)
+## Function used for conversion from byteArray to String (The values that we get for the head touch sensors are byteArrays)
+def fmt(x, f): 
     s = ""
     x = bytearray(x)
     for i in range(0, len(x)):
@@ -31,25 +32,37 @@ def fmt(x, f): #function used for conversion from byteArray to String (The value
         s = s + f.format(x[i])
     return s
 
+## \file good.py 
+## \brief The node good.py implements the action corresponding to the command "Good".
+## @n The Robot moves up its head and move its tail.
+## @n The node subscribes to /platform/sensors and reads the values of the capacitive sensors on Miro's body and head.
+## @n When the user touches Miro it changes behavior and lightening pattern.
+
 class GoodMode():
+
     def __init__(self):
         ## Node rate
         self.rate = rospy.get_param('rate',200)
-        ##
+
+        ## Initialization of head capacitive sensors
         self.h1 = 0
         self.h2 = 0
         self.h3 = 0
         self.h4 = 0
+        ## Initialization of bodycapacitive sensors
         self.b1 = 0
         self.b2 = 0
         self.b3 = 0
         self.b4 = 0
 
+        ## Subscriber to the topic /miro/rob01/platform/sensors a message of type platform_sensors that cointains the information about the capacitive sensors.
         self.sub_sensors_touch = rospy.Subscriber('/miro/rob01/platform/sensors', platform_sensors, self.callback_touch,queue_size =1)
+        ## Publisher to the topic /miro_good a message of type platform_control which corresponds to the "Good" action.
         self.pub_platform_control = rospy.Publisher('/miro_good',platform_control,queue_size=0)
 
-        
+    ## Callback function that saves in class' attributes the capacitive sensor readings converted    
     def callback_touch(self, datasensor):
+
         self.h1 = int(fmt(datasensor.touch_head, '{0:.0f}')[0]) 
         self.h2 = int(fmt(datasensor.touch_head, '{0:.0f}')[3]) 
         self.h3 = int(fmt(datasensor.touch_head, '{0:.0f}')[6])
@@ -60,7 +73,10 @@ class GoodMode():
         self.b4 = int(fmt(datasensor.touch_body, '{0:.0f}')[9])
             
 
+    ## Function that implements different behavior and lightening pattern depending on where it is touched
+
     def miro_good(self):
+
         r = rospy.Rate(self.rate)
         q = platform_control()
         count = 0

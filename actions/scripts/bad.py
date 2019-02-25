@@ -32,7 +32,7 @@ class SadMode():
 
         ## Node rate
         self.rate = rospy.get_param('rate',200)
-        ## Publisher to the topic /miro_sad a message of type platform_control which corresponds to the "Play" action.
+        ## Publisher to the topic /miro_sad a message of type platform_control which corresponds to the "Bad" action.
         self.pub_platform_control = rospy.Publisher('/miro_sad',platform_control,queue_size=0)
     
     ## Function that sets the parameters of the structure platform_control corresponding to action "Bad".
