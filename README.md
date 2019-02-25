@@ -161,7 +161,11 @@ Parameters that is possible to change directly from the launch file:
 
 ## Results
 
-A video of the experiments can be found [HERE]
+Demostration video
+
+[![MiRo-Training - SoRo](https://img.youtube.com/vi/DoKFgs3enpU/0.jpg)](https://www.youtube.com/watch?v=DoKFgs3enpU&feature=youtu.be).
+[![Autonomous Emotional Behavior](https://img.youtube.com/vi/JuykWYto3PA/0.jpg)](https://www.youtube.com/watch?v=JuykWYto3PA&feature=youtu.be).
+
 Each partecipant was asked to fill the [questionaire](http://bit.ly/MiroTrainingSurvey) in order to evaluate the interaction with the robot.
 ## Recommendations
 
