@@ -168,7 +168,6 @@ class CommandRecognition():
                 count_bad = 0
                 q = self.q_sleep
                 self.pub_platform_control.publish(q)
-                self.pub_sleep_mode.publish(True)
                 self.activate = False
                 count_sleep = 1
                 print "Sleep"

@@ -18,6 +18,8 @@ import rospy
 from std_msgs.msg import String
 from sensor_msgs.msg import Image,CompressedImage,Range,Imu
 from geometry_msgs.msg import Twist,Pose
+import miro_msgs
+from miro_msgs.msg import platform_config,platform_sensors,platform_state,platform_mics,platform_control,core_state,core_control,core_config,bridge_config,bridge_stream
 
 
 import math
@@ -36,7 +38,9 @@ class DanceGesture():
 
     ##Constructor
     def __init__(self):
-
+        self.lastyaw = False
+        ## Node rate
+        self.rate = rospy.get_param('rate',200)
         ##Last acelleration data received from smartwatch
         self.last_acc = [0,0,0]
         ##Last gyro velocity received from smartwatch
@@ -69,33 +73,23 @@ class DanceGesture():
 
         self.g = imu_data.angular_velocity.z
         self.lastyaw = False
+    
     def gesture_decoding (self):
-
         r = rospy.Rate(self.rate)
         q = platform_control()
         count = 0
         while not rospy.is_shutdown():
-
             if self.g > 2:
-
                 self.lastyaw = True
 
             else:
-
                 if self.lastyaw:
-
                     count = count + 1
-
                     self.lastyaw = False
             
-            
-           rospy.loginfo(count)
-
-
-            self.pub_platform_control.publish(q)
-
+            rospy.loginfo(count)
+            # self.pub_platform_control.publish(q)
             r.sleep()
-
 
 if __name__== '__main__':
     rospy.init_node('dance')
