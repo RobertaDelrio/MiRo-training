@@ -27,9 +27,10 @@ from datetime import datetime
 ## @n The action are handled independently by separated nodes. 
 ## @n The current node subscribes to them and, when the associated command is received, publishes on MiRo the msg content.
 
+##\brief The class CommandRecognition handles the different incoming commands and publish on the robot the corresponding action
 class CommandRecognition():
 
-       
+    ## Constructor   
     def __init__(self):
 
         ## Node rate
@@ -119,15 +120,13 @@ class CommandRecognition():
         self.q_kill = kill
     
     ## Function that check the incoming commands and publish the corresponding action
-    ## @n The command "Miro" brings the robot in a default configuration the first time is used. The variable self.activate is set to True and enables the evauation of the other commands.
+    ## @n The command "Miro" brings the robot in a default configuration the first time is used. The variable activate is set to True and enables the evauation of the other commands.
     ## @n The command "Bad" is executed only if self.active is True and publish the action managed by the node bad.py
     ## @n The command "Good" is executed only if self.active is True and publish the action managed by the node good.py
     ## @n The command "Play" is executed only if self.active is True and publish the action managed by the node play.py
-    ## @n The command "Let's go out" is executed only if self.active is True and publish the action managed by the node gbb.py
+    ## @n The command "Let's go out" is executed only if self.active is True and publish the action managed by the node gbb_miro.py
     ## @n The command "Sleep" is executed only if self.active is True and publish the action managed by the node sleep.py. 
-    ## @n The variable self.activate is set to False and Miro remains in sleep mode until a new command "Miro" is received.
-
-
+    ## @n The variable activate is set to False and Miro remains in sleep mode until a new command "Miro" is received.
     def switching_commands(self):
 
         q = platform_control()

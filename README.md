@@ -1,4 +1,4 @@
- # MiRo Training
+ # [MiRo Training](https://emarolab.github.io/MiRo-training/)
 
  ## The Project
  This Project has been developed for the Social Robotics course of the master degree program in Robotics Engineering at University of Genoa.
