@@ -161,8 +161,8 @@ Parameters that is possible to change directly from the launch file:
 
 ## Results
 
-A video of the experiments can be found [HERE](http://bit.ly/MiroTrainingSurvey)
-Each partecipant was asked to fill the [questionaire] in order to evaluate the interaction with the robot.
+A video of the experiments can be found [HERE]
+Each partecipant was asked to fill the [questionaire](http://bit.ly/MiroTrainingSurvey) in order to evaluate the interaction with the robot.
 ## Recommendations
 
 
