@@ -25,6 +25,7 @@ from datetime import datetime
 ## \brief The node sleep.py implements the action corresponding to the command "Sleep"
 ## @n Miro closes its eyes, lights up in acquamarine, lowers its tail and inclines and moves down its head.
 
+## \brief The class SleepMode implements the sleeping behavior
 class SleepMode():
 
     def __init__(self):
